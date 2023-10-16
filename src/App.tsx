@@ -3,7 +3,6 @@ import { SquidWidget } from "@0xsquid/widget";
 import Logo from './images/logo.png';
 import Bridge from './images/bridge.png';
 import Copy from './images/copy.png';
-import Guide from './images/guide.png';
 import './App.css';
 import axios from 'axios';
 
@@ -29,7 +28,7 @@ function App() {
   }
 
   const onSubmit = () => {
-    axios.post('https://be.chainnels.com/auth/validatecode', {
+    axios.post('http://localhost:4007/auth/validatecode', {
       code: first + second + third + fourth,
     })
     .then(function (response) {
@@ -38,7 +37,6 @@ function App() {
       }else{
         setError(response.data.message);
       }
-      console.log(response);
     })
     .catch(function (err) {
       console.log(err);
@@ -63,33 +61,63 @@ function App() {
             <p>Please input code from the</p>
             <p>Chainnels app to proceed funding your wallet:</p>
             <div className='input-group'>
-              <input autoFocus maxLength={1} ref={ref1} value={first} onChange={(e) => {
-                setFirst(e.target.value);
-                if(!!e.target.value){
-                  ref2.current.focus();
-                }
-              }}/>
-              <input maxLength={1} ref={ref2} value={second} onChange={(e) => {
-                setSecond(e.target.value);
-                if(!!e.target.value){
-                  ref3.current.focus();
-                }else{
-                  ref1.current.focus();
-                }              }}/>
-              <input maxLength={1} ref={ref3} value={third} onChange={(e) => {
-                setThird(e.target.value);
-                if(!!e.target.value){
-                  ref4.current.focus();
-                }else{
-                  ref2.current.focus();
-                } 
-              }}/>
-              <input maxLength={1} ref={ref4} value={fourth} onChange={(e) => {
-                setFourth(e.target.value);
-                if(!e.target.value){
-                  ref3.current.focus();
-                }
-              }}/>
+              <input 
+                autoFocus 
+                maxLength={1} 
+                ref={ref1} 
+                defaultValue={first} 
+                onChange={(e) => {
+                  setFirst(e.target.value);
+                  if(!!e.target.value){
+                    ref2.current.focus();
+                  }
+                }}
+              />
+              <input 
+                maxLength={1} 
+                ref={ref2} 
+                defaultValue={second} 
+                onChange={(e) => {
+                  setSecond(e.target.value);
+                    if(!!e.target.value){
+                      ref3.current.focus();
+                    }             
+                  }}
+                  onKeyUp={(e) => {
+                    if (e.key === 'Backspace') {
+                      ref1.current.focus();
+                    }
+                  }}
+                />
+              <input 
+                maxLength={1} 
+                ref={ref3} 
+                defaultValue={third} 
+                onChange={(e) => {
+                  setThird(e.target.value);
+                  if(!!e.target.value){
+                    ref4.current.focus();
+                  } 
+                }}
+                onKeyUp={(e) => {
+                  if (e.key === 'Backspace') {
+                    ref2.current.focus();
+                  }
+                }}
+              />
+              <input 
+                maxLength={1} 
+                ref={ref4} 
+                defaultValue={fourth} 
+                onChange={(e) => {
+                  setFourth(e.target.value);
+                }}
+                onKeyUp={(e) => {
+                  if (e.key === 'Backspace') {
+                    ref3.current.focus();
+                  }
+                }}
+              />
             </div>
             <p className='error'>{error}</p>
         </div>
@@ -104,13 +132,10 @@ function App() {
               <img className='copy' src={Copy} onClick={copyClipboard}/>
               {noti && <span className='noti'>{noti}</span>}
             </div>
-            <div className='guide'>
-               <img src={Guide} />
-               <p>Ensure that you have copied and pasted your wallet address into the destination address.</p>
-            </div>
           </div>
           <SquidWidget  
               config={{
+                destinationAddress: user.wallet_address,
                 companyName:"Supa",
                 slippage:3,
                 style: {
