@@ -28,7 +28,7 @@ function App() {
   }
 
   const onSubmit = () => {
-    axios.post('http://localhost:4007/auth/validatecode', {
+    axios.post('https://be.chainnels.com/auth/validatecode', {
       code: first + second + third + fourth,
     })
     .then(function (response) {
@@ -136,7 +136,7 @@ function App() {
           <SquidWidget  
               config={{
                 destinationAddress: user.wallet_address,
-                companyName:"Supa",
+                companyName:"Chainnels",
                 slippage:3,
                 style: {
                   "neutralContent": "#6A61FF",
@@ -158,15 +158,15 @@ function App() {
                 },
                 integratorId: "supa-swap-widget",
                 initialFromChainId: 1, // Ethereum
-                initialToChainId: 59144, // Linea
+                initialToChainId: 250, // Linea
                 favTokens: [
                   {
                     address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Token address for Ethereum
                     chainId: 1, // Chain ID for Ethereum
                   },
                   {
-                    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Token address for Linea
-                    chainId: 59144, // Chain ID for Linea
+                    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Token address for Fantom
+                    chainId: 250, // Chain ID for Fantom
                   },
                 ],
                 defaultTokens: [
@@ -175,8 +175,8 @@ function App() {
                     chainId: 1, // Chain ID for Ethereum
                   },
                   {
-                    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Token address for Linea
-                    chainId: 59144, // Chain ID for Linea
+                    address: "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE", // Token address for Fantom
+                    chainId: 250, // Chain ID for Fantom
                   },
                 ],
               }}
