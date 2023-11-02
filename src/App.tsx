@@ -3,7 +3,6 @@ import { SquidWidget } from "@0xsquid/widget";
 import Logo from './images/logo.png';
 import Bridge from './images/bridge.png';
 import Copy from './images/copy.png';
-import Guide from './images/guide.png';
 import './App.css';
 import axios from 'axios';
 
@@ -133,13 +132,10 @@ function App() {
               <img className='copy' src={Copy} onClick={copyClipboard}/>
               {noti && <span className='noti'>{noti}</span>}
             </div>
-            <div className='guide'>
-               <img src={Guide} />
-               <p>Ensure that you have copied and pasted your wallet address into the destination address.</p>
-            </div>
           </div>
           <SquidWidget  
               config={{
+                destinationAddress: user.wallet_address,
                 companyName:"Supa",
                 slippage:3,
                 style: {
