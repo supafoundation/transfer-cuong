@@ -28,7 +28,7 @@ function App() {
   }
 
   const onSubmit = () => {
-    axios.post('https://be.chainnels.com/auth/validatecode', {
+    axios.post('https://be-test.chainnels.com/auth/validatecode', {
       code: first + second + third + fourth,
     })
     .then(function (response) {
