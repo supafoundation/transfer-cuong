@@ -65,10 +65,16 @@ function App() {
                 autoFocus 
                 maxLength={1} 
                 ref={ref1} 
-                defaultValue={first} 
+                value={first} 
                 onChange={(e) => {
-                  setFirst(e.target.value);
+                  setFirst(e.target.value.toUpperCase());
                   if(!!e.target.value){
+                    ref2.current.focus();
+                  }
+                }}
+                onKeyUp={(e: any) => {
+                  if(e.keyCode >= 48 && e.keyCode <= 90 && !!first){
+                    setSecond(e.key.toUpperCase());
                     ref2.current.focus();
                   }
                 }}
@@ -76,31 +82,37 @@ function App() {
               <input 
                 maxLength={1} 
                 ref={ref2} 
-                defaultValue={second} 
+                value={second} 
                 onChange={(e) => {
-                  setSecond(e.target.value);
-                    if(!!e.target.value){
-                      ref3.current.focus();
-                    }             
-                  }}
-                  onKeyUp={(e) => {
-                    if (e.key === 'Backspace') {
-                      ref1.current.focus();
-                    }
-                  }}
+                  setSecond(e.target.value.toUpperCase());
+                  if(!!e.target.value){
+                    ref3.current.focus();
+                  }             
+                }}
+                onKeyUp={(e: any) => {
+                  if(e.keyCode >= 48 && e.keyCode <= 90 && !!second){
+                    setThird(e.key.toUpperCase());
+                    ref3.current.focus();
+                  }else if (e.key === 'Backspace') {
+                    ref1.current.focus();
+                  }
+                }}
                 />
               <input 
                 maxLength={1} 
                 ref={ref3} 
-                defaultValue={third} 
+                value={third} 
                 onChange={(e) => {
-                  setThird(e.target.value);
+                  setThird(e.target.value.toUpperCase());
                   if(!!e.target.value){
                     ref4.current.focus();
                   } 
                 }}
-                onKeyUp={(e) => {
-                  if (e.key === 'Backspace') {
+                onKeyUp={(e: any) => {
+                  if(e.keyCode >= 48 && e.keyCode <= 90 && !!third){
+                    setFourth(e.key.toUpperCase());
+                    ref4.current.focus();
+                  }else if (e.key === 'Backspace') {
                     ref2.current.focus();
                   }
                 }}
@@ -108,9 +120,9 @@ function App() {
               <input 
                 maxLength={1} 
                 ref={ref4} 
-                defaultValue={fourth} 
+                value={fourth} 
                 onChange={(e) => {
-                  setFourth(e.target.value);
+                  setFourth(e.target.value.toUpperCase());
                 }}
                 onKeyUp={(e) => {
                   if (e.key === 'Backspace') {
